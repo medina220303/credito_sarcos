@@ -206,4 +206,6 @@ $(document).ready(function () {
             alert("Ocurrió un error al generar el cronograma. Por favor, verifique los datos ingresados.");
         }
     }
+
+    
 });

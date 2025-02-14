@@ -1,0 +1,181 @@
+/* Improved styles.css */
+
+/* Variables globales */
+:root {
+  --primary-color: #e74c3c;
+  --secondary-color: #f39c12;
+  --light-color: #fff;
+  --text-color: #666;
+  --background-color: #f8f9fa;
+  --font-family: 'Gotham', 'Arial', sans-serif;
+  --transition-speed: 0.3s;
+  --border-radius: 15px;
+  --box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Reset básico */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Base */
+body {
+  margin: 0;
+  padding: 40px 0;
+  min-height: 100vh;
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+/* Caja de la calculadora */
+.calculator-box {
+  background: var(--light-color);
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Logo */
+.logo-img {
+  display: block;
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 20px;
+  object-fit: contain;
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Formularios */
+.form-label {
+  color: var(--text-color);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border: none;
+  min-width: 40px;
+  justify-content: center;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #ddd;
+  padding: 0.6rem 1rem;
+  transition: border-color var(--transition-speed);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 5px rgba(243, 156, 18, 0.5);
+  outline: none;
+}
+
+/* Botón principal */
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 12px 30px;
+  font-weight: 700;
+  font-family: var(--font-family);
+  color: var(--light-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-speed) ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para la tabla */
+.table {
+  width: 100%;
+  margin-top: 0px;
+  border-collapse: collapse;
+  background-color: var(--light-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+}
+
+.table thead th {
+  padding: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.table tbody td {
+  padding: 12px 15px;
+  border: 1px solid #eee;
+  color: var(--text-color);
+}
+
+.table tbody tr:hover {
+  background-color: #fff5e6;
+}
+
+/* Fila de totales */
+.total-row {
+  background-color: var(--background-color);
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* Estilos responsive */
+@media (max-width: 768px) {
+  .calculator-box {
+    padding: 20px;
+    margin: 15px;
+  }
+  
+  .welcome-text {
+    font-size: 1.2rem;
+  }
+  
+  .table-responsive {
+    font-size: 14px;
+    overflow-x: auto;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

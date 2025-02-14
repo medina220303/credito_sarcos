@@ -4,7 +4,7 @@
     "description": "Simulador de Créditos - Calcula tus pagos fácilmente",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
+    "background_color": "#e74c3c",
     "theme_color": "#e74c3c",
     "orientation": "portrait-primary",
     "icons": [

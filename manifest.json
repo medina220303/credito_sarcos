@@ -9,42 +9,42 @@
     "orientation": "portrait-primary",
     "icons": [
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "72x72",
         "type": "image/x-icon"
       },
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "96x96",
         "type": "image/x-icon"
       },
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "128x128",
         "type": "image/x-icon"
       },
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "144x144",
         "type": "image/x-icon"
       },
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "152x152",
         "type": "image/x-icon"
       },
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "192x192",
         "type": "image/x-icon"
       },
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "384x384",
         "type": "image/x-icon"
       },
       {
-        "src": "logo.ico",
+        "src": "log.ico",
         "sizes": "512x512",
         "type": "image/x-icon"
       }

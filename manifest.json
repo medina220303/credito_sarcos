@@ -9,49 +9,49 @@
     "orientation": "portrait-primary",
     "icons": [
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "72x72",
         "type": "image/x-icon",
         "purpose": "any maskable"
       },
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "96x96",
         "type": "image/x-icon",
         "purpose": "any maskable"
       },
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "128x128",
         "type": "image/x-icon",
         "purpose": "any maskable"
       },
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "144x144",
         "type": "image/x-icon",
         "purpose": "any maskable"
       },
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "152x152",
         "type": "image/x-icon",
         "purpose": "any maskable"
       },
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "192x192",
         "type": "image/x-icon",
         "purpose": "any maskable"
       },
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "384x384",
         "type": "image/x-icon",
         "purpose": "any maskable"
       },
       {
-        "src": "log3.ico",
+        "src": "log2.ico",
         "sizes": "512x512",
         "type": "image/x-icon",
         "purpose": "any maskable"

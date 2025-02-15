@@ -53,10 +53,10 @@ $(document).ready(function () {
 
     function asignarInteres() {
         const tasasInteres = {
-            diario: 1,
-            semanal: 3,
+            diario: 0.3,
+            semanal: 2.5,
             quincenal: 5,
-            mensual: 7
+            mensual: 10
         };
         
         const formaPago = $("#forma_pago").val();

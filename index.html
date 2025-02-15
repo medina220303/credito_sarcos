@@ -108,7 +108,7 @@
               <tbody></tbody>
             </table>
           </div>
-          
+
           <div class="text-center">
             <button class="btn-print" onclick="imprimirPagina()">Imprimir</button>
           </div>
@@ -125,6 +125,20 @@
 
   <!-- Archivo JavaScript -->
   <script src="simulador.js"></script>
+  
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((registration) => {
+            console.log('ServiceWorker registrado correctamente:', registration);
+          })
+          .catch((error) => {
+            console.log('Error al registrar el ServiceWorker:', error);
+          });
+      });
+    }
+  </script>
 
   <script>
     function imprimirPagina() {

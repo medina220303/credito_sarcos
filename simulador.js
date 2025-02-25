@@ -115,92 +115,103 @@ $(document).ready(function () {
     function generarCronograma() {
         try {
             if (!validarFormulario()) return;
-
+    
             const forma_pago = $("#forma_pago").val();
             const inicio_pago = $("#inicio_pago").val();
             const monto = parseFloat($("#monto").val());
             const inicial = parseFloat($("#inicial").val());
             const plazo = parseInt($("#plazo").val());
             const interesPorcentaje = parseFloat($("#interes").val());
-
+    
             // Validar que inicial no sea mayor que monto
             if (inicial >= monto) {
                 alert("El inicial no puede ser mayor o igual al monto del préstamo");
                 return;
             }
-
+    
             // Validar plazo máximo
             if (plazo > 168) {
                 alert("El plazo no puede ser mayor a 6 meses");
                 $("#plazo").val(168);
                 return;
             }
-
+    
+            // Calcular la deuda a financiar
             const deuda = monto - inicial;
-            const r = interesPorcentaje / 100;
-            const interesCuota = Math.round(deuda * r);
-            const capital = Math.round(deuda / plazo);
-            const cuota = capital + interesCuota;
+            // Fórmula base para la cuota sin redondear:
+            const cuota = (deuda / plazo) + (deuda * (interesPorcentaje / 100));
+            // Redondear cuota a dos decimales usando Math.round:
+            const cuotaRounded = Math.round(cuota * 100) / 100;
+            var montoCuotaRounded = Math.round(cuotaRounded);
+
+            // Opcionalmente, se calcula también el capital e interés por cuota
+            const capital = deuda / plazo;
+            var capitalRounded = Math.round(capital);
+
+            const interesCuota = deuda * (interesPorcentaje / 100);
+            var interesRounded = Math.round(interesCuota);
 
             const schedule = [];
             let totalInteres = 0;
             let totalCapital = 0;
             let totalCuota = 0;
-
+    
             // Crear fecha inicial de pago
             const partes = inicio_pago.split("-");
             let paymentDate = new Date(partes[0], partes[1] - 1, partes[2]);
             paymentDate = calcularFechaVencimiento(paymentDate, forma_pago);
-
+    
             // Generar cronograma
             const fragment = document.createDocumentFragment();
             
             for (let i = 1; i <= plazo; i++) {
                 const saldo = Math.max(0, Math.round(deuda - (capital * i)));
-
-                totalInteres += interesCuota;
-                totalCapital += capital;
-                totalCuota += cuota;
-
+    
+                totalInteres += interesRounded;
+                totalCapital += capitalRounded;
+                totalCuota += montoCuotaRounded;  // Sumar el valor redondeado de la cuota
+    
                 const row = {
                     numero: i,
                     vencimiento: formatDate(paymentDate),
-                    interes: interesCuota,
-                    capital: capital,
-                    cuota: cuota,
+                    interes: interesRounded,
+                    capital: capitalRounded,
+                    cuota: montoCuotaRounded,  // Redondear la cuota
                     saldo: saldo
                 };
-
+    
                 schedule.push(row);
-
+    
                 // Crear fila de la tabla SIN la columna "capital"
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${row.numero}</td>
                     <td>${row.vencimiento}</td>
                     <td>${row.interes.toFixed(2)}</td>
+                    <td>${row.capital.toFixed(2)}</td>
                     <td>${row.cuota.toFixed(2)}</td>
                     <td>${row.saldo.toFixed(2)}</td>
                 `;
                 fragment.appendChild(tr);
-
+    
                 paymentDate = calcularFechaVencimiento(paymentDate, forma_pago);
             }
-
+    
             // Agregar fila de totales SIN la columna "capital"
             const trTotal = document.createElement('tr');
             trTotal.innerHTML = `
                 <td colspan="2" style="font-weight: bold; background-color: #d3d3d3;">TOTALES</td>
                 <td style="font-weight: bold; background-color: #d3d3d3;">${totalInteres.toFixed(2)}</td>
+                <td style="font-weight: bold; background-color: #d3d3d3;">${totalCapital.toFixed(2)}</td>
                 <td style="font-weight: bold; background-color: #d3d3d3;">${totalCuota.toFixed(2)}</td>
                 <td style="font-weight: bold; background-color: #d3d3d3;"></td>
             `;
             fragment.appendChild(trTotal);
-
+    
             // Actualizar tabla
             const tbody = $("#tblcronograma tbody");
             tbody.empty().append(fragment);
-
+    
         } catch (error) {
             console.error("Error al generar cronograma:", error);
             alert("Ocurrió un error al generar el cronograma. Por favor, verifique los datos ingresados.");

@@ -138,45 +138,47 @@ $(document).ready(function () {
     
             // Calcular la deuda a financiar
             const deuda = monto - inicial;
-            // Fórmula base para la cuota sin redondear:
-            const cuota = (deuda / plazo) + (deuda * (interesPorcentaje / 100));
-            // Redondear cuota a dos decimales usando Math.round:
-            const cuotaRounded = Math.round(cuota * 100) / 100;
-            var montoCuotaRounded = Math.round(cuotaRounded);
-
-            // Opcionalmente, se calcula también el capital e interés por cuota
+    
+            // Calcular el interés por cuota (redondeado) y el monto total de la deuda
+            const montoInteres = Math.round(deuda * (interesPorcentaje / 100));
+            const montoDeuda = deuda + (montoInteres * plazo);
+    
+            // Calcular la cuota base y redondearla a 1 decimal
+            const cuotaBase = montoDeuda / plazo;
+            const cuotaRounded = parseFloat(cuotaBase.toFixed(1));
+    
+            // Calcular el capital por cuota y redondearlo
             const capital = deuda / plazo;
             var capitalRounded = Math.round(capital);
-
-            const interesCuota = deuda * (interesPorcentaje / 100);
-            var interesRounded = Math.round(interesCuota);
-
-            const schedule = [];
+    
+            // Inicializar totales
             let totalInteres = 0;
             let totalCapital = 0;
             let totalCuota = 0;
     
+            const schedule = [];
             // Crear fecha inicial de pago
             const partes = inicio_pago.split("-");
             let paymentDate = new Date(partes[0], partes[1] - 1, partes[2]);
             paymentDate = calcularFechaVencimiento(paymentDate, forma_pago);
     
-            // Generar cronograma
+            // Crear fragmento para construir el cronograma
             const fragment = document.createDocumentFragment();
             
             for (let i = 1; i <= plazo; i++) {
+                // Calcular saldo restante (se asegura de que no sea negativo)
                 const saldo = Math.max(0, Math.round(deuda - (capital * i)));
     
-                totalInteres += interesRounded;
+                totalInteres += montoInteres;
                 totalCapital += capitalRounded;
-                totalCuota += montoCuotaRounded;  // Sumar el valor redondeado de la cuota
+                totalCuota += cuotaRounded;
     
                 const row = {
                     numero: i,
                     vencimiento: formatDate(paymentDate),
-                    interes: interesRounded,
+                    interes: montoInteres,
                     capital: capitalRounded,
-                    cuota: montoCuotaRounded,  // Redondear la cuota
+                    cuota: cuotaRounded,
                     saldo: saldo
                 };
     
@@ -188,7 +190,6 @@ $(document).ready(function () {
                     <td>${row.numero}</td>
                     <td>${row.vencimiento}</td>
                     <td>${row.interes.toFixed(2)}</td>
-                    <td>${row.capital.toFixed(2)}</td>
                     <td>${row.cuota.toFixed(2)}</td>
                     <td>${row.saldo.toFixed(2)}</td>
                 `;
@@ -202,7 +203,6 @@ $(document).ready(function () {
             trTotal.innerHTML = `
                 <td colspan="2" style="font-weight: bold; background-color: #d3d3d3;">TOTALES</td>
                 <td style="font-weight: bold; background-color: #d3d3d3;">${totalInteres.toFixed(2)}</td>
-                <td style="font-weight: bold; background-color: #d3d3d3;">${totalCapital.toFixed(2)}</td>
                 <td style="font-weight: bold; background-color: #d3d3d3;">${totalCuota.toFixed(2)}</td>
                 <td style="font-weight: bold; background-color: #d3d3d3;"></td>
             `;
@@ -216,7 +216,7 @@ $(document).ready(function () {
             console.error("Error al generar cronograma:", error);
             alert("Ocurrió un error al generar el cronograma. Por favor, verifique los datos ingresados.");
         }
-    }
+    }    
 
     
 });

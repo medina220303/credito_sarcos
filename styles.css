@@ -230,3 +230,52 @@ body {
     transform: translateY(0);
   }
 }
+/* Por defecto, en pantalla se muestra el texto completo y se oculta el abreviado */
+.full-header {
+  display: inline;
+}
+.abrev-header {
+  display: none;
+}
+
+/* En impresión, se oculta el texto completo y se muestra el abreviado */
+@media print {
+  .full-header {
+    display: none;
+  }
+  .abrev-header {
+    display: inline;
+  }
+
+  /* Asegúrate de que el resto de la tabla se formatee correctamente */
+  .calculator-box > :not(.table-responsive),
+  .btn-print,
+  .btn-primary {
+    display: none !important;
+  }
+  
+  .table-responsive {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80mm;  /* Ajusta el ancho según tu impresora térmica */
+    margin: 0;
+    padding: 0;
+    font-size: 8pt;
+  }
+  
+  .table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .table thead th,
+  .table tbody td {
+    padding: 2px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+}

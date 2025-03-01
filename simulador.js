@@ -108,9 +108,9 @@ $(document).ready(function () {
     function formatDate(date) {
         const d = String(date.getDate()).padStart(2, '0');
         const m = String(date.getMonth() + 1).padStart(2, '0');
-        const y = date.getFullYear();
+        const y = String(date.getFullYear()).slice(-2);
         return `${d}/${m}/${y}`;
-    }
+    }    
 
     function generarCronograma() {
         try {

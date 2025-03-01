@@ -93,34 +93,45 @@
               </div>
             </div>
           </form>
-
-          <div class="table-responsive mt-4">
-            <table id="tblcronograma" class="table table-hover">
-              <thead>
-                <tr>
-                  <th>N°</th>
-                  <th>
-                    <span class="full-header">Vencimiento</span>
-                    <span class="abrev-header">FECH</span>
-                  </th>
-                  <th>
-                    <span class="full-header">Interés</span>
-                    <span class="abrev-header">INTE</span>
-                  </th>
-                  <th>
-                    <span class="full-header">Cuota</span>
-                    <span class="abrev-header">CUO</span>
-                  </th>
-                  <th>
-                    <span class="full-header">Saldo</span>
-                    <span class="abrev-header">SALD</span>
-                  </th>
-                </tr>
-              </thead>            
-              <tbody></tbody>
-            </table>
+          <div id="ticket-container">
+            <!-- Encabezado de impresión -->
+            <div id="print-header" style="display: none;">
+              <p style="font-weight: bold; font-size: 18px; margin: 0;">SARCOS</p>
+              <p style="margin: 0;">WHATSAPP: 994050357 - 949325375</p>
+              <p style="margin: 0;">Av. Alameda Perú #172 - Av. Raimondi #714</p>
+              <hr style="border: 1px dashed #000; margin: 5px 0;">
+            </div>
+            <!-- Tabla -->
+            <div class="table-responsive mt-4">
+              <table id="tblcronograma" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>
+                      <span class="full-header">N°</span>
+                      <span class="abrev-header">NUM</span>
+                    </th>
+                    <th>
+                      <span class="full-header">Vencimiento</span>
+                      <span class="abrev-header">FEC</span>
+                    </th>
+                    <th>
+                      <span class="full-header">Interés</span>
+                      <span class="abrev-header">INT</span>
+                    </th>
+                    <th>
+                      <span class="full-header">Cuota</span>
+                      <span class="abrev-header">CUO</span>
+                    </th>
+                    <th>
+                      <span class="full-header">Saldo</span>
+                      <span class="abrev-header">SALD</span>
+                    </th>
+                  </tr>
+                </thead>            
+                <tbody></tbody>
+              </table>
+            </div>
           </div>
-          
           <div class="text-center">
             <button class="btn-print" onclick="imprimirPagina()">Imprimir</button>
           </div>

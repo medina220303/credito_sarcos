@@ -240,42 +240,53 @@ body {
 
 /* En impresión, se oculta el texto completo y se muestra el abreviado */
 @media print {
+  /* Contenedor ticket: ancho fijo y centrado */
+  #ticket-container {
+    width: 100mm; /* Ancho del ticket */
+    margin: 0 auto; /* Centrar horizontalmente */
+    text-align: center; /* Centrar el contenido internamente */
+  }
+  
+  /* Por defecto, en impresión de muestra el abreviado y se oculta el texto completo */
   .full-header {
     display: none;
   }
   .abrev-header {
     display: inline;
   }
-
-  /* Asegúrate de que el resto de la tabla se formatee correctamente */
-  .calculator-box > :not(.table-responsive),
-  .btn-print,
-  .btn-primary {
-    display: none !important;
+  
+  /* Mostrar el encabezado en impresión */
+  #print-header {
+    display: block !important;
+    margin-bottom: 8px;
   }
   
+  /* Configuración de la tabla */
   .table-responsive {
-    display: block !important;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 80mm;  /* Ajusta el ancho según tu impresora térmica */
-    margin: 0;
-    padding: 0;
-    font-size: 8pt;
+    width: 100%; /* Usa el 100% del contenedor (80mm) */
+    margin: 0 auto;
+    font-size: 10pt; /* Tamaño de fuente ajustado para ticket */
   }
   
   .table {
     width: 100%;
-    table-layout: fixed;
+    table-layout: fixed; /* Para que las columnas se distribuyan uniformemente */
   }
   
   .table thead th,
   .table tbody td {
-    padding: 2px;
-    text-align: center;
-    vertical-align: middle;
+    padding: 2px; /* Reducir el padding para aprovechar espacio */
     white-space: normal;
     word-wrap: break-word;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  /* Opcional: ocultar elementos que no deseas imprimir */
+  .calculator-box > :not(#ticket-container),
+  .btn-print,
+  .btn-primary {
+    display: none !important;
   }
 }
+

@@ -34,6 +34,54 @@ $(document).ready(function () {
     validarCampoNumerico("#inicial", "El inicial no puede ser menor a 0", true); // Permitir cero
     validarCampoNumerico("#plazo", "El plazo debe ser mayor a 0");
 
+    function customRound(num) {
+        const parteEntera = Math.floor(num);
+        const parteDecimal = num - parteEntera;
+        return parteDecimal >= 0.35 ? parteEntera + 1 : parteEntera;
+    }
+
+    // Función para calcular el inicial sugerido
+    function calcularInicialSugerido() {
+        const monto = parseFloat($("#monto").val()) || 0;
+        const inicial = parseFloat($("#inicial").val()) || 0;
+        const plazo = parseInt($("#plazo").val()) || 1;
+        const interes = parseFloat($("#interes").val()) || 0;
+
+        if (monto > 0 && plazo > 0 && inicial < monto) {
+            // Calcular la deuda a financiar
+            const deuda = monto - inicial;
+            
+            // Calcular el interés total acumulado
+            const montoInteres = customRound(deuda * (interes / 100));
+            
+            // Calcular monto total de deuda con interés
+            const montoDeuda = deuda + (montoInteres * plazo);
+            
+            // Calcular cuota base
+            const cuotaBase = montoDeuda / plazo;
+            
+            // Calcular inicial sugerido
+            // isug = (parte decimal de cuota base * plazo) + inicial
+            const parteDecimal = ((cuotaBase - Math.floor(cuotaBase)).toFixed(2));
+            const inicialSugerido = (parseFloat(parteDecimal) * plazo) + inicial;
+            
+            $("#inicial_sugerido").val(inicialSugerido.toFixed(0));
+        } else {
+            $("#inicial_sugerido").val("");
+        }
+    }
+
+    // Agregar listeners para actualizar el inicial sugerido
+    $("#monto, #inicial, #plazo, #interes").on("input change", function() {
+        calcularInicialSugerido();
+    });
+
+    // Calcular inicial sugerido al cambiar la forma de pago (afecta el interés)
+    $("#forma_pago").change(function () {
+        asignarInteres();
+        calcularInicialSugerido();
+    });
+
     // Validación de fecha de inicio
     $("#inicio_pago").on("change", function() {
         const selectedDate = new Date($(this).val());
@@ -44,11 +92,6 @@ $(document).ready(function () {
             alert("La fecha de inicio no puede ser anterior a hoy");
             $(this).val(formatearFecha());
         }
-    });
-
-    // Asignación automática de interés según forma de pago
-    $("#forma_pago").change(function () {
-        asignarInteres();
     });
 
     function asignarInteres() {
@@ -140,12 +183,12 @@ $(document).ready(function () {
             const deuda = monto - inicial;
     
             // Calcular el interés por cuota (redondeado) y el monto total de la deuda
-            const montoInteres = Math.round(deuda * (interesPorcentaje / 100));
+            const montoInteres = customRound(deuda * (interesPorcentaje / 100));
             const montoDeuda = deuda + (montoInteres * plazo);
     
-            // Calcular la cuota base y redondearla a 1 decimal
+            // Mantener los dos decimales de la cuota para no perder centavos
             const cuotaBase = montoDeuda / plazo;
-            const cuotaRounded = parseFloat(cuotaBase.toFixed(1));
+            const cuotaRounded = parseFloat(cuotaBase.toFixed(2));
     
             // Calcular el capital por cuota y redondearlo
             const capital = deuda / plazo;

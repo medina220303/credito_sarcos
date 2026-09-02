@@ -1,5 +1,5 @@
 // Nombre del cache
-const CACHE_NAME = 'simulador-creditos-v1';
+const CACHE_NAME = 'simulador-creditos-v2';
 
 // Archivos a cachear
 const urlsToCache = [
@@ -17,6 +17,7 @@ const urlsToCache = [
 
 // Instalación del service worker
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
@@ -27,6 +28,7 @@ self.addEventListener('install', (event) => {
 
 // Activación del service worker
 self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim());
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
